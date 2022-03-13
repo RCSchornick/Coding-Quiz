@@ -1,7 +1,26 @@
+var quizOpener = document.querySelector("#start");
+var timerEl = document.querySelector("#timer");
 
 
+var nextQuestion = 0;
+var time = 100;
 
-
+var startQuiz = function(event) {
+    startTime();
+    quizOpener.remove();
+    nextQuestion(nextQuestion);
+}
+var startTimer = function() {
+    var quizTime = setInterval(function() {
+        if (time <= 0) {
+            clearInterval(quizTime);
+            time = 0;
+        } else {
+            timerEl.textContent = "Time Remaining: " + startTimer;
+        }
+        startTime -= 1;
+    }, 1000);
+}
 var codeQuestions = [{
     title: "1. What symbol combination creates a CSS comment?",
     choices: {
@@ -49,3 +68,4 @@ var codeQuestions = [{
     answer : 'pull/push'    
     },
 ]
+quizOpener.addEventListener("click", startQuiz);
