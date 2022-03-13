@@ -1,0 +1,10 @@
+body{ background-color: lightblue;}
+
+header {background-color: whitesmoke; padding: 20px;}
+.score {float:left; font-size: 20px;}
+.timer {float:right; font-size: 20px;}
+.button {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); border-radius: 8px; background-color: #008CBA; font-size: 24px;}
+section {text-align: center; padding: 80px;}
+h1 {font-size: 65px; font-weight: 300;}
+p {font-size: 25px}
