@@ -1,71 +1,71 @@
-var quizOpener = document.querySelector("#start");
-var timerEl = document.querySelector("#timer");
+var startBtn = document.getElementById("start");
+var timerEl = document.getElementById("timer");
+var contentDiv = document.getElementById("content");
+var qDiv = document.getElementById("questions");
+var answerComment = document.getElementById("comment");
 
-
-var nextQuestion = 0;
 var time = 100;
+var timerInterval;
 
-var startQuiz = function(event) {
-    startTime();
-    quizOpener.remove();
-    nextQuestion(nextQuestion);
-}
-var startTimer = function() {
-    var quizTime = setInterval(function() {
+var gameIndex = -1;
+
+
+function startQuiz() {
+    timerEl.textContent = time;
+    timerInterval = setInterval(function () {
+        time--;
+        timerEl.textContent = time;
         if (time <= 0) {
-            clearInterval(quizTime);
-            time = 0;
-        } else {
-            timerEl.textContent = "Time Remaining: " + startTimer;
+            endQuiz();
         }
-        startTime -= 1;
     }, 1000);
+
+    gameIndex++;
+    showQuestion();
 }
-var codeQuestions = [{
-    title: "1. What symbol combination creates a CSS comment?",
-    choices: {
-       a: '/*',
-       b: '//',
-       c: '*|',
-       d: '?$',
-    },
-    answer: '/*',
-    },
-    {title: "2. What git command should you use to create a new file?",
-    choices: {
-        a: 'pull',
-        b: 'merge',
-        c: 'touch',
-        d: 'explore',
-    },
-    answer: 'touch',
-    },
-    {title: "3. What is the term for creating a skeleton of an HTML document?",
-    choices: {
-        a: 'bricking',
-        b: 'scaffolding',
-        c: 'building',
-        d: 'roofing',
-    },
-    answer: 'touch',
-    },
-    {title: "4. What is a set of HTML code that builds part of the overall page's UI commonly referred to?",
-    choices: {
-        a: 'component',
-        b: 'piece',
-        c: 'element',
-        d: 'unit',
-    },
-    answer: 'component',
-    },
-    {question: "5. What is the git command is used to save your work to your repository?",
-    choices: {
-        a: 'save',
-        b: 'merge',
-        c: 'init',
-        d: 'pull/push',
-    },
-    answer : 'pull/push'    
-    },
-]
-quizOpener.addEventListener("click", startQuiz);
+
+function endQuiz() {
+    clearInterval(timerInterval);
+}
+
+function showQuestion() {
+    var question = questions[gameIndex];
+    qDiv.innerHTML = '';
+    var questionDiv = document.createElement("div");
+    var titleP = document.createElement("p");
+    titleP.textContent = question.title;
+    questionDiv.append(titleP);
+
+    for (var i = 0; i < question.choices.length; i++) {
+        var btnEl = document.createElement("button");
+        var choice = question.choices[i];
+        btnEl.textContent = choice;
+        btnEl.onclick = checkAnswer
+        btnEl.setAttribute("data-answer", question.answer);
+        questionDiv.append(btnEl);
+    }
+    qDiv.append(questionDiv);
+}
+
+function checkAnswer(event) {
+    var answer = event.target.getAttribute("data-answer");
+    var choice = event.target.textContent;
+    if (choice === answer) {
+        answerComment.textContent = "You got it right, WOOOO!!!"
+        console.log("You got it right!")
+    } else {
+        time -= 10;
+        answerComment.textContent = "WRONGGG!";
+        console.log("WRONGGG")
+    }
+    answerComment.setAttribute("class", "feedback");
+    setTimeout(function() {
+        answerComment.setAttribute("class", "comment hide");
+    }, 1000);
+
+
+    gameIndex++;
+    showQuestion();
+}
+
+startBtn.onclick = startQuiz;
