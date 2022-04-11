@@ -1,16 +1,9 @@
 # Coding Quiz
-  "not licensed"
-  
-  
-    * [Installation](#installation)
-    * [Usage](#usage)
-    * [Contributions](#contributions)
-    * [License](#license)
-    
-  
+
   
   ## Description
   This project is a quiz to test your coding knowledge. Everytime you get a question wrong you will lose points on the timer.
+  Please click the link to use the application https://rcschornick.github.io/Coding-Quiz/ .
   
   ## Installation
   npm install
